@@ -1,0 +1,11 @@
+
+var letter = function(let){
+	this.charac = let;
+	this.appear = false;
+	this.letterRender = function(){
+		return !(this.appear) ? "_" : this.charac;
+	};
+};
+
+//Exporting The Constructor
+module.exports = letter;
