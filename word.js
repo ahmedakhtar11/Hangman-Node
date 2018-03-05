@@ -1,44 +1,60 @@
+// require letter.js
+var Letter = require('./letter.js');
 
-var letter = require('./letter.js');
+function Word(wrd) {
+  var that = this;
 
-function Word(target) {
-	this.target = target;
-	this.lets = [];
-	this.found = false;
+  this.word = wrd;
+  this.letters = [];
+  this.wordFound = false;
 
-	this.getLet = function() {
-		for (var i=0; i < this.target.length; i++) {
-			this.lets.push( new letter(this.target[i]));
-		}
-	};
+  this.pushLetter = function() {
 
-	this.findWord = function() {
-		this.found = this.lets.every(function(currLett) {
-			return currLett.appear;
-		});
-		return this.found;
-	};
+    for(var i = 0; i<that.word.length; i++){
+      var newLetter = new Letter(that.word[i]);
+      this.letters.push(newLetter);
+    }
+  };
 
-	this.checkLetter = function(guessLet) {
-		var toReturn = 0;
+  //Finding the current word
+  this.matchWord = function() {
+    if(this.letters.every(function(lttr){
+      return lttr.appear === true;
+    })){
+      this.wordFound = true;
+      return true;
+    }
 
-		for (var i = 0; i < this.lets.length; i++) {
-			if (this.lets[i].charac == guessLet){
-				this.lets[i].appear = true;
-				toReturn++;
-			}
-		}
-		return toReturn;
-	};
+  };
 
-	this.wordRender = function() {
-		var string = '';
-		for (var i=0; i < this.lets.length; i++){
-			string += this.lets[i].letterRender();
-		}
-		return string;
-	};
+  this.matchLetter = function(guessedLetter) {
+    var whatToReturn = 0;
 
+    //checking if each letter matches guessedLetter
+
+    this.letters.forEach(function(lttr){
+      if(lttr.letter === guessedLetter){
+        lttr.appear = true;
+        whatToReturn++;
+      }
+    })
+
+    //showing the letter object
+    return whatToReturn;
+  };
+
+  this.renderWord = function() {
+    var display = '';
+
+   //rendering the word
+    that.letters.forEach(function(lttr){
+      var currentLetter = lttr.letterRender();
+      display+= currentLetter;
+    });
+
+    return display;
+  };
 }
 
 module.exports = Word;
+

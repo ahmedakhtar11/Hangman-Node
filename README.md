@@ -1,2 +1,0 @@
-Hangman-Node
-JavaScript Constructors

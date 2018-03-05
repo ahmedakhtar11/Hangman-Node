@@ -1,11 +1,29 @@
+var Letter = function(ltr) {
 
-var letter = function(let){
-	this.charac = let;
-	this.appear = false;
-	this.letterRender = function(){
-		return !(this.appear) ? "_" : this.charac;
-	};
+// property to store Keyboard Letters Used
+  this.letter = ltr;
+
+// property to store letter appearance
+  this.appear = false;
+
+  this.letterRender = function() {
+    if(this.letter == ' '){ 
+
+      //If-Then Statement to use letter appear property
+      this.appear = true;
+	      return '  ';
+	    }
+	    if(this.appear === false){
+	    		return ' _ ';
+		} 
+		else{
+		      	return this.letter;
+		}
+  };
 };
 
-//Exporting The Constructor
-module.exports = letter;
+// export to word.js
+module.exports = Letter;
+
+
+
